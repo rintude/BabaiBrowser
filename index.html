@@ -52,7 +52,6 @@
             100% { transform: scale(0.9); opacity: 0.5; }
         }
 
-        /* মেইন লেআউট */
         .navbar {
             background: #111;
             padding: 15px 30px;
@@ -64,10 +63,16 @@
             z-index: 100;
         }
 
-        .search-bar {
+        /* সার্চ ফর্ম স্টাইল */
+        .search-form {
             flex-grow: 1;
             display: flex;
             margin: 0 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            display: flex;
             background: #222;
             border-radius: 30px;
             padding: 5px 20px;
@@ -81,9 +86,9 @@
             color: white;
             padding: 10px;
             outline: none;
+            font-size: 16px;
         }
 
-        /* ক্যাটাগরি গ্রিড */
         .container {
             padding: 40px 5%;
             max-width: 1400px;
@@ -135,12 +140,8 @@
             border-top: 1px solid #222;
         }
 
-        /* আইফ্রেম এরিয়া */
-        #browser-frame {
-            display: none;
-            width: 100%;
-            height: calc(100vh - 80px);
-            border: none;
+        @media (max-width: 600px) {
+            .splash-text { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -153,13 +154,14 @@
     <div id="main-content" style="display:none;">
         <div class="navbar">
             <div style="font-size: 20px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
-            <div class="search-bar">
-                <input type="text" id="urlInput" placeholder="ইউআরএল বা অনুসন্ধান লিখুন...">
-            </div>
-            <button onclick="launchURL()" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">খুলুন</button>
+            
+            <form class="search-form" onsubmit="return launchURL(event)">
+                <div class="search-bar">
+                    <input type="text" id="urlInput" placeholder="ইউআরএল বা অনুসন্ধান লিখুন..." enterkeyhint="search">
+                </div>
+                <button type="submit" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold; margin-left: 10px;">খুলুন</button>
+            </form>
         </div>
-
-        <iframe id="browser-frame"></iframe>
 
         <div class="container" id="dashboard">
             
@@ -198,7 +200,7 @@
             </div>
 
             <div class="category-section">
-                <div class="category-title">ই-কমার্স ও শপিং</div>
+                <div class="category-title">ই-commerce ও শপিং</div>
                 <div class="link-grid">
                     <a class="link-card" href="https://www.amazon.in" target="_blank">Amazon India</a>
                     <a class="link-card" href="https://www.flipkart.com" target="_blank">Flipkart</a>
@@ -274,7 +276,7 @@
     </div>
 
     <script>
-        // স্টার্ট-আপ এনিমেশন কন্ট্রোল
+        // স্টার্ট-আপ এনিমেশন কন্ট্রোল (৩ সেকেন্ড)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -284,15 +286,26 @@
                     splash.style.display = 'none';
                     main.style.display = 'block';
                 }, 1000);
-            }, 3000); // ৩ সেকেন্ডের এনিমেশন
+            }, 3000);
         });
 
-        function launchURL() {
-            const val = document.getElementById('urlInput').value;
-            if(val) {
-                let target = val.startsWith('http') ? val : 'https://' + val;
+        // URL লজিক যা Enter বাটন এবং Mobile Search এ কাজ করবে
+        function launchURL(event) {
+            event.preventDefault(); // ফর্ম সাবমিট হওয়া আটকায়
+            const input = document.getElementById('urlInput');
+            let val = input.value.trim();
+            
+            if (val) {
+                // যদি ইউআরএল না হয় তবে গুগলে সার্চ হবে
+                let target;
+                if (val.includes('.') && !val.includes(' ')) {
+                    target = val.startsWith('http') ? val : 'https://' + val;
+                } else {
+                    target = 'https://www.google.com/search?q=' + encodeURIComponent(val);
+                }
                 window.open(target, '_blank');
             }
+            return false;
         }
     </script>
 </body>
