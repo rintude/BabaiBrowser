@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babai Gaming Browser</title>
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a0c;
+            --panel-bg: #16161a;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background: var(--panel-bg);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            margin-right: 20px;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .search-container {
+            flex-grow: 1;
+            display: flex;
+            background: #25252b;
+            border-radius: 5px;
+            padding: 5px 15px;
+            border: 1px solid #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px;
+            outline: none;
+        }
+
+        .go-btn {
+            background: var(--neon-purple);
+            border: none;
+            color: white;
+            padding: 5px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .go-btn:hover {
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* Sidebar for Gaming Apps */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 65px);
+        }
+
+        .sidebar {
+            width: 70px;
+            background: var(--panel-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .sidebar-icon {
+            width: 40px;
+            height: 40px;
+            background: #25252b;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-icon:hover {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* Content Area */
+        .browser-content {
+            flex-grow: 1;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #webframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+            display: none; /* Hidden until a URL is entered */
+        }
+
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 10px; }
+        p { color: #aaa; margin-bottom: 30px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">BABAI</div>
+        <div class="search-container">
+            <input type="text" id="urlInput" placeholder="এখানে ইউআরএল (URL) লিখুন বা অনুসন্ধান করুন...">
+            <button class="go-btn" onclick="loadPage()">চলুন</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-icon" title="হোম" onclick="goHome()">🏠</div>
+            <div class="sidebar-icon" title="গেমস">🎮</div>
+            <div class="sidebar-icon" title="সেটিংস">⚙️</div>
+        </div>
+
+        <div class="browser-content" id="contentArea">
+            <div class="home-screen" id="homeScreen">
+                <h1>বাবাই গেমিং ব্রাউজারে স্বাগতম</h1>
+                <p>আপনার গেমিং অভিজ্ঞতা এখন আরও উন্নত এবং দ্রুত।</p>
+                <div style="display: flex; gap: 20px;">
+                    <button class="go-btn" onclick="quickLoad('https://www.google.com')">গুগল</button>
+                    <button class="go-btn" onclick="quickLoad('https://www.youtube.com')">ইউটিউব</button>
+                </div>
+            </div>
+            <iframe id="webframe"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function loadPage() {
+            const url = document.getElementById('urlInput').value;
+            const frame = document.getElementById('webframe');
+            const home = document.getElementById('homeScreen');
+
+            if (url) {
+                let finalUrl = url;
+                if (!url.startsWith('http')) {
+                    finalUrl = 'https://' + url;
+                }
+                
+                home.style.display = 'none';
+                frame.style.display = 'block';
+                frame.src = finalUrl;
+            }
+        }
+
+        function quickLoad(url) {
+            document.getElementById('urlInput').value = url;
+            loadPage();
+        }
+
+        function goHome() {
+            document.getElementById('webframe').style.display = 'none';
+            document.getElementById('homeScreen').style.display = 'flex';
+            document.getElementById('urlInput').value = '';
+        }
+    </script>
+</body>
+</html>
