@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>বাবাই ব্রাউজার</title>
     <style>
-        /* থিম ভেরিয়েবলসমূহ */
         :root {
-            --neon-primary: #00f7ff; /* ডিফল্ট সায়ান */
+            --neon-primary: #00f7ff;
             --neon-magenta: #ff00ff;
             --bg-dark: #050505;
             --card-bg: #1a1a1d;
             --section-bg: #0f0f12;
         }
 
-        /* থিম ক্লাসসমূহ */
         .theme-cyan { --neon-primary: #00f7ff; }
         .theme-green { --neon-primary: #39ff14; }
         .theme-gold { --neon-primary: #ffcc00; }
@@ -25,6 +23,28 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-dark);
             color: white;
+        }
+
+        /* গেমিং লোগো স্টাইল (BABAI) */
+        .gaming-logo {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rgb-glow 8s linear infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        }
+
+        @keyframes rgb-glow {
+            0% { background-position: 0%; }
+            100% { background-position: 400%; }
         }
 
         #splash-screen {
@@ -64,68 +84,30 @@
             color: white; padding: 10px; outline: none; font-size: 16px;
         }
 
-        /* থিম সিলেক্টর স্টাইল */
-        .theme-switcher {
-            display: flex; gap: 8px; margin-right: 15px;
-        }
-        .theme-dot {
-            width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;
-        }
+        .theme-switcher { display: flex; gap: 8px; margin-right: 15px; }
+        .theme-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
 
         .container { padding: 30px 5%; max-width: 1400px; margin: auto; }
-
-        .category-section {
-            margin-bottom: 40px; background: var(--section-bg);
-            padding: 25px; border-radius: 20px; border: 1px solid #222;
-        }
-
-        .category-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px;
-        }
-
-        .category-title {
-            font-size: 1.5rem; color: var(--neon-primary); font-weight: bold;
-            cursor: pointer;
-        }
-
-        .link-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px;
-        }
-
+        .category-section { margin-bottom: 40px; background: var(--section-bg); padding: 25px; border-radius: 20px; border: 1px solid #222; }
+        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .category-title { font-size: 1.5rem; color: var(--neon-primary); font-weight: bold; cursor: pointer; }
+        .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px; }
         .link-card-wrapper { position: relative; }
-        .link-card {
-            background: var(--card-bg); padding: 15px 10px; border-radius: 15px;
-            text-align: center; border: 1px solid #333;
-            text-decoration: none; color: white; transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
+        .link-card { background: var(--card-bg); padding: 15px 10px; border-radius: 15px; text-align: center; border: 1px solid #333; text-decoration: none; color: white; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .link-card:hover { transform: translateY(-5px); border-color: var(--neon-primary); box-shadow: 0 0 15px var(--neon-primary); }
         .link-card img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 3px; }
         .link-card span { font-size: 0.75rem; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-        .delete-btn {
-            position: absolute; top: -5px; right: -5px;
-            background: #ff4444; color: white; border: none; border-radius: 50%;
-            width: 22px; height: 22px; font-size: 12px; cursor: pointer;
-            z-index: 10; display: none;
-        }
+        .delete-btn { position: absolute; top: -5px; right: -5px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; cursor: pointer; z-index: 10; display: none; }
         .link-card-wrapper:hover .delete-btn { display: block; }
-
-        .add-link-btn {
-            background: #222; border: 2px dashed #444; border-radius: 15px;
-            color: #888; font-size: 24px; cursor: pointer; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center; min-height: 95px;
-        }
+        .add-link-btn { background: #222; border: 2px dashed #444; border-radius: 15px; color: #888; font-size: 24px; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; min-height: 95px; }
         .add-link-btn:hover { border-color: var(--neon-primary); color: var(--neon-primary); }
-
         .footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
 
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
+            .gaming-logo { font-size: 18px; }
             .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-            .navbar { padding: 10px; }
-            .theme-switcher { display: none; } /* মোবাইলে জায়গা বাঁচাতে লুকানো */
+            .theme-switcher { display: none; }
         }
     </style>
 </head>
@@ -137,7 +119,7 @@
 
     <div id="main-content" style="display:none;">
         <div class="navbar">
-            <div style="font-size: 22px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
+            <div class="gaming-logo" onclick="location.reload()">BABAI</div>
             
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
@@ -163,6 +145,7 @@
     </div>
 
     <script>
+        // ডেটা আগের মতোই সংরক্ষিত থাকবে
         const defaultData = [
             { title: "যোগাযোগ ও সোশ্যাল মিডিয়া", links: [
                 { name: "WhatsApp Web", url: "https://web.whatsapp.com" },
