@@ -3,202 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babai Gaming Browser</title>
+    <title>বাবাই ব্রাউজার</title>
     <style>
         :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #0a0a0c;
-            --panel-bg: #16161a;
+            --neon-cyan: #00f7ff;
+            --neon-magenta: #ff00ff;
+            --bg-dark: #050505;
+            --card-bg: #121214;
         }
 
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-dark);
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Top Navigation Bar */
+        /* স্টার্ট-আপ এনিমেশন */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+
+        .splash-text {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+            letter-spacing: 10px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        /* মেইন লেআউট */
         .navbar {
-            background: var(--panel-bg);
-            padding: 10px 20px;
+            background: #111;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
-            border-bottom: 2px solid var(--neon-purple);
-            box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+            border-bottom: 2px solid var(--neon-cyan);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            margin-right: 20px;
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .search-container {
+        .search-bar {
             flex-grow: 1;
             display: flex;
-            background: #25252b;
-            border-radius: 5px;
-            padding: 5px 15px;
-            border: 1px solid #333;
+            margin: 0 20px;
+            background: #222;
+            border-radius: 30px;
+            padding: 5px 20px;
+            border: 1px solid #444;
         }
 
-        input[type="text"] {
+        .search-bar input {
             width: 100%;
             background: transparent;
             border: none;
             color: white;
-            padding: 8px;
+            padding: 10px;
             outline: none;
         }
 
-        .go-btn {
-            background: var(--neon-purple);
-            border: none;
-            color: white;
-            padding: 5px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: 0.3s;
+        /* ক্যাটাগরি গ্রিড */
+        .container {
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: auto;
         }
 
-        .go-btn:hover {
-            background: var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue);
+        .category-section {
+            margin-bottom: 50px;
         }
 
-        /* Sidebar for Gaming Apps */
-        .main-container {
-            display: flex;
-            height: calc(100vh - 65px);
-        }
-
-        .sidebar {
-            width: 70px;
-            background: var(--panel-bg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-            border-right: 1px solid #333;
-        }
-
-        .sidebar-icon {
-            width: 40px;
-            height: 40px;
-            background: #25252b;
+        .category-title {
+            font-size: 1.5rem;
+            border-left: 4px solid var(--neon-magenta);
+            padding-left: 15px;
             margin-bottom: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--neon-cyan);
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .link-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 1px solid transparent;
+            border: 1px solid #222;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 0.9rem;
         }
 
-        .sidebar-icon:hover {
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
+        .link-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2);
+            color: white;
         }
 
-        /* Content Area */
-        .browser-content {
-            flex-grow: 1;
-            position: relative;
-            background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        #webframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
-            display: none; /* Hidden until a URL is entered */
-        }
-
-        .home-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+        .footer {
             text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid #222;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        p { color: #aaa; margin-bottom: 30px; }
-
+        /* আইফ্রেম এরিয়া */
+        #browser-frame {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <div class="logo">BABAI</div>
-        <div class="search-container">
-            <input type="text" id="urlInput" placeholder="এখানে ইউআরএল (URL) লিখুন বা অনুসন্ধান করুন...">
-            <button class="go-btn" onclick="loadPage()">চলুন</button>
-        </div>
+    <div id="splash-screen">
+        <div class="splash-text">বাবাই ব্রাউজার</div>
     </div>
 
-    <div class="main-container">
-        <div class="sidebar">
-            <div class="sidebar-icon" title="হোম" onclick="goHome()">🏠</div>
-            <div class="sidebar-icon" title="গেমস">🎮</div>
-            <div class="sidebar-icon" title="সেটিংস">⚙️</div>
+    <div id="main-content" style="display:none;">
+        <div class="navbar">
+            <div style="font-size: 20px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
+            <div class="search-bar">
+                <input type="text" id="urlInput" placeholder="ইউআরএল বা অনুসন্ধান লিখুন...">
+            </div>
+            <button onclick="launchURL()" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">খুলুন</button>
         </div>
 
-        <div class="browser-content" id="contentArea">
-            <div class="home-screen" id="homeScreen">
-                <h1>বাবাই গেমিং ব্রাউজারে স্বাগতম</h1>
-                <p>আপনার গেমিং অভিজ্ঞতা এখন আরও উন্নত এবং দ্রুত।</p>
-                <div style="display: flex; gap: 20px;">
-                    <button class="go-btn" onclick="quickLoad('https://www.google.com')">গুগল</button>
-                    <button class="go-btn" onclick="quickLoad('https://www.youtube.com')">ইউটিউব</button>
+        <iframe id="browser-frame"></iframe>
+
+        <div class="container" id="dashboard">
+            
+            <div class="category-section">
+                <div class="category-title">যোগাযোগ ও সোশ্যাল মিডিয়া</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://web.whatsapp.com" target="_blank">WhatsApp</a>
+                    <a class="link-card" href="https://www.facebook.com" target="_blank">Facebook</a>
+                    <a class="link-card" href="https://www.x.com" target="_blank">X (Twitter)</a>
+                    <a class="link-card" href="https://www.bengalimatrimony.com" target="_blank">Bengali Matrimony</a>
+                    <a class="link-card" href="https://www.shaadi.com" target="_blank">Shaadi.com</a>
                 </div>
             </div>
-            <iframe id="webframe"></iframe>
+
+            <div class="category-section">
+                <div class="category-title">আর্টিফিশিয়াল ইন্টেলিজেন্স ও সার্চ</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://chat.openai.com" target="_blank">ChatGPT</a>
+                    <a class="link-card" href="https://gemini.google.com" target="_blank">Gemini</a>
+                    <a class="link-card" href="https://www.deepseek.com" target="_blank">DeepSeek</a>
+                    <a class="link-card" href="https://x.ai" target="_blank">Grok</a>
+                    <a class="link-card" href="https://www.google.com" target="_blank">Google</a>
+                    <a class="link-card" href="https://translate.google.com" target="_blank">Translator</a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-title">ইমেইল ও মিটিং</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://mail.google.com" target="_blank">Gmail</a>
+                    <a class="link-card" href="https://mail.yahoo.com" target="_blank">Yahoo Mail</a>
+                    <a class="link-card" href="https://www.zoho.com/mail" target="_blank">Zoho Mail</a>
+                    <a class="link-card" href="https://meet.google.com" target="_blank">Google Meet</a>
+                    <a class="link-card" href="https://www.youtube.com" target="_blank">YouTube</a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-title">ই-কমার্স ও শপিং</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://www.amazon.in" target="_blank">Amazon India</a>
+                    <a class="link-card" href="https://www.flipkart.com" target="_blank">Flipkart</a>
+                    <a class="link-card" href="https://www.myntra.com" target="_blank">Myntra</a>
+                    <a class="link-card" href="https://www.meesho.com" target="_blank">Meesho</a>
+                    <a class="link-card" href="https://www.shopsy.in" target="_blank">Shopsy</a>
+                    <a class="link-card" href="https://www.ajio.com" target="_blank">Ajio</a>
+                    <a class="link-card" href="https://www.nykaafashion.com" target="_blank">Nykaa Fashion</a>
+                    <a class="link-card" href="https://www.reliancedigital.in" target="_blank">Reliance Digital</a>
+                    <a class="link-card" href="https://www.jiomart.com" target="_blank">JioMart</a>
+                    <a class="link-card" href="https://www.bigbasket.com" target="_blank">BigBasket</a>
+                    <a class="link-card" href="https://www.lenskart.com" target="_blank">Lenskart</a>
+                    <a class="link-card" href="https://www.snapdeal.com" target="_blank">Snapdeal</a>
+                    <a class="link-card" href="https://www.olx.in" target="_blank">OLX</a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-title">ব্যাঙ্কিং ও ফিন্যান্স</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://www.onlinesbi.sbi" target="_blank">SBI Bank</a>
+                    <a class="link-card" href="https://www.hdfcbank.com" target="_blank">HDFC Bank</a>
+                    <a class="link-card" href="https://www.icicibank.com" target="_blank">ICICI Bank</a>
+                    <a class="link-card" href="https://www.axisbank.com" target="_blank">Axis Bank</a>
+                    <a class="link-card" href="https://www.pnbindia.in" target="_blank">PNB Bank</a>
+                    <a class="link-card" href="https://www.bandhanbank.com" target="_blank">Bandhan Bank</a>
+                    <a class="link-card" href="https://www.unionbankofindia.co.in" target="_blank">Union Bank</a>
+                    <a class="link-card" href="https://www.indianbank.in" target="_blank">Indian Bank</a>
+                    <a class="link-card" href="https://www.bankofbaroda.in" target="_blank">Bank of Baroda</a>
+                    <a class="link-card" href="https://www.indusind.com" target="_blank">IndusInd Bank</a>
+                    <a class="link-card" href="https://www.yesbank.in" target="_blank">Yes Bank</a>
+                    <a class="link-card" href="https://www.ucobank.com" target="_blank">UCO Bank</a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-title">মেডিসিন ও স্বাস্থ্য</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://www.1mg.com" target="_blank">Tata 1mg</a>
+                    <a class="link-card" href="https://www.pharmeasy.in" target="_blank">PharmEasy</a>
+                    <a class="link-card" href="https://www.netmeds.com" target="_blank">Netmeds</a>
+                    <a class="link-card" href="https://www.apollo247.com" target="_blank">Apollo 24/7</a>
+                    <a class="link-card" href="https://www.truemeds.in" target="_blank">Truemeds</a>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <div class="category-title">ভ্রমণ ও খাদ্য সরবরাহ</div>
+                <div class="link-grid">
+                    <a class="link-card" href="https://www.irctc.co.in" target="_blank">IRCTC</a>
+                    <a class="link-card" href="https://www.makemytrip.com" target="_blank">MakeMyTrip</a>
+                    <a class="link-card" href="https://www.goibibo.com" target="_blank">Goibibo</a>
+                    <a class="link-card" href="https://www.yatra.com" target="_blank">Yatra</a>
+                    <a class="link-card" href="https://www.booking.com" target="_blank">Booking.com</a>
+                    <a class="link-card" href="https://www.trivago.in" target="_blank">Trivago</a>
+                    <a class="link-card" href="https://www.agoda.com" target="_blank">Agoda</a>
+                    <a class="link-card" href="https://www.skyscanner.co.in" target="_blank">Skyscanner</a>
+                    <a class="link-card" href="https://www.redbus.in" target="_blank">redBus</a>
+                    <a class="link-card" href="https://www.oyorooms.com" target="_blank">OYO</a>
+                    <a class="link-card" href="https://www.zomato.com" target="_blank">Zomato</a>
+                    <a class="link-card" href="https://www.swiggy.com" target="_blank">Swiggy</a>
+                    <a class="link-card" href="https://www.dominos.co.in" target="_blank">Domino's</a>
+                    <a class="link-card" href="https://www.pizzahut.co.in" target="_blank">Pizza Hut</a>
+                    <a class="link-card" href="https://www.kfc.co.in" target="_blank">KFC</a>
+                    <a class="link-card" href="https://www.bookmyshow.com" target="_blank">BookMyShow</a>
+                </div>
+            </div>
+
+            <div class="footer">
+                &copy; ২০২৫ বাবাই ব্রাউজার | সর্বস্বত্ব সংরক্ষিত - <strong>বাবাই</strong>
+            </div>
         </div>
     </div>
 
     <script>
-        function loadPage() {
-            const url = document.getElementById('urlInput').value;
-            const frame = document.getElementById('webframe');
-            const home = document.getElementById('homeScreen');
+        // স্টার্ট-আপ এনিমেশন কন্ট্রোল
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                const main = document.getElementById('main-content');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    main.style.display = 'block';
+                }, 1000);
+            }, 3000); // ৩ সেকেন্ডের এনিমেশন
+        });
 
-            if (url) {
-                let finalUrl = url;
-                if (!url.startsWith('http')) {
-                    finalUrl = 'https://' + url;
-                }
-                
-                home.style.display = 'none';
-                frame.style.display = 'block';
-                frame.src = finalUrl;
+        function launchURL() {
+            const val = document.getElementById('urlInput').value;
+            if(val) {
+                let target = val.startsWith('http') ? val : 'https://' + val;
+                window.open(target, '_blank');
             }
-        }
-
-        function quickLoad(url) {
-            document.getElementById('urlInput').value = url;
-            loadPage();
-        }
-
-        function goHome() {
-            document.getElementById('webframe').style.display = 'none';
-            document.getElementById('homeScreen').style.display = 'flex';
-            document.getElementById('urlInput').value = '';
         }
     </script>
 </body>
