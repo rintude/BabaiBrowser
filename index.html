@@ -10,28 +10,29 @@
             --neon-primary: #00f7ff;
             --neon-magenta: #ff00ff;
             --bg-dark: #050505;
-            --card-bg: #1a1a1d;
-            --section-bg: #0f0f12;
+            --card-bg: #121214;
+            --section-bg: #0a0a0c;
         }
 
-        .theme-cyan { --neon-primary: #00f7ff; }
-        .theme-green { --neon-primary: #39ff14; }
-        .theme-gold { --neon-primary: #ffcc00; }
-        .theme-red { --neon-primary: #ff3131; }
+        .theme-cyan { --neon-primary: #00f7ff; --glow: rgba(0, 247, 255, 0.5); }
+        .theme-green { --neon-primary: #39ff14; --glow: rgba(57, 255, 20, 0.5); }
+        .theme-gold { --neon-primary: #ffcc00; --glow: rgba(255, 204, 0, 0.5); }
+        .theme-red { --neon-primary: #ff3131; --glow: rgba(255, 49, 49, 0.5); }
 
         body, html {
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-dark);
             color: white;
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
         }
 
-        /* Rubik Gemstones ফন্ট সহ গেমিং লোগো */
+        /* Gaming Logo Style */
         .gaming-logo {
-            font-family: 'Rubik Gemstones', system-ui; /* আপনার পছন্দের ফন্ট */
-            font-size: 32px;
+            font-family: 'Rubik Gemstones', system-ui;
+            font-size: 36px;
             font-weight: 400;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
             background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
@@ -40,7 +41,7 @@
             background-clip: text;
             color: transparent;
             animation: rgb-glow 8s linear infinite;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            filter: drop-shadow(0 0 10px var(--glow));
         }
 
         @keyframes rgb-glow {
@@ -58,56 +59,129 @@
         }
 
         .splash-text {
-            font-size: 4rem; font-weight: bold; color: var(--neon-primary);
-            text-shadow: 0 0 20px var(--neon-primary);
+            font-family: 'Rubik Gemstones', cursive;
+            font-size: 4rem; 
+            color: var(--neon-primary);
+            text-shadow: 0 0 30px var(--neon-primary), 0 0 60px var(--neon-primary);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1); opacity: 1; }
+            0%, 100% { transform: scale(0.9); opacity: 0.6; filter: hue-rotate(0deg); }
+            50% { transform: scale(1); opacity: 1; filter: hue-rotate(45deg); }
         }
 
         .navbar {
-            background: #111; padding: 15px 30px;
+            background: rgba(10, 10, 12, 0.95);
+            padding: 15px 30px;
             display: flex; align-items: center;
-            border-bottom: 2px solid var(--neon-primary);
+            border-bottom: 3px solid var(--neon-primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 15px var(--glow);
             position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
-        .search-form { flex-grow: 1; display: flex; margin: 0 20px; }
+        .search-form { flex-grow: 1; display: flex; margin: 0 30px; }
         .search-bar {
-            width: 100%; display: flex; background: #222;
-            border-radius: 30px; padding: 5px 20px; border: 1px solid #444;
+            width: 100%; display: flex; background: #1a1a1d;
+            border-radius: 5px; padding: 2px 15px; 
+            border: 2px solid #333;
+            transition: 0.3s;
+            clip-path: polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+        }
+        .search-bar:focus-within {
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 15px var(--glow);
         }
         .search-bar input {
             width: 100%; background: transparent; border: none;
-            color: white; padding: 10px; outline: none; font-size: 16px;
+            color: white; padding: 12px; outline: none; font-size: 16px;
+            font-weight: bold;
         }
 
-        .theme-switcher { display: flex; gap: 8px; margin-right: 15px; }
-        .theme-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
+        .theme-switcher { display: flex; gap: 10px; margin-right: 20px; }
+        .theme-dot { 
+            width: 22px; height: 22px; border-radius: 3px; cursor: pointer; 
+            border: 1px solid #fff; transition: 0.2s;
+            transform: rotate(45deg);
+        }
+        .theme-dot:hover { transform: rotate(45deg) scale(1.2); filter: brightness(1.5); }
 
-        .container { padding: 30px 5%; max-width: 1400px; margin: auto; }
-        .category-section { margin-bottom: 40px; background: var(--section-bg); padding: 25px; border-radius: 20px; border: 1px solid #222; }
-        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .category-title { font-size: 1.5rem; color: var(--neon-primary); font-weight: bold; cursor: pointer; }
-        .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px; }
+        .container { padding: 40px 5%; max-width: 1400px; margin: auto; }
+        .category-section { 
+            margin-bottom: 50px; 
+            background: var(--section-bg); 
+            padding: 30px; 
+            border-radius: 10px; 
+            border-left: 5px solid var(--neon-primary);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+        }
+        .category-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px; 
+        }
+        .category-title { 
+            font-size: 1.4rem; color: var(--neon-primary); 
+            font-weight: bold; cursor: pointer; 
+            text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 25px; }
         .link-card-wrapper { position: relative; }
-        .link-card { background: var(--card-bg); padding: 15px 10px; border-radius: 15px; text-align: center; border: 1px solid #333; text-decoration: none; color: white; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .link-card:hover { transform: translateY(-5px); border-color: var(--neon-primary); box-shadow: 0 0 15px var(--neon-primary); }
-        .link-card img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 3px; }
-        .link-card span { font-size: 0.75rem; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .delete-btn { position: absolute; top: -5px; right: -5px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; cursor: pointer; z-index: 10; display: none; }
+        
+        .link-card { 
+            background: var(--card-bg); 
+            padding: 20px 10px; 
+            border-radius: 5px; 
+            text-align: center; 
+            border: 1px solid #222; 
+            text-decoration: none; 
+            color: white; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .link-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            opacity: 0; transition: 0.4s;
+        }
+        .link-card:hover { 
+            transform: scale(1.1) rotate(2deg); 
+            border-color: var(--neon-primary); 
+            box-shadow: 0 0 20px var(--glow); 
+            z-index: 5;
+        }
+        .link-card:hover::before { opacity: 0.3; }
+        
+        .link-card img { width: 45px; height: 45px; border-radius: 5px; background: #fff; padding: 4px; position: relative; z-index: 2; }
+        .link-card span { font-size: 0.8rem; font-weight: 600; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; z-index: 2; }
+        
+        .delete-btn { 
+            position: absolute; top: -8px; right: -8px; background: #ff0000; color: white; 
+            border: none; border-radius: 3px; width: 24px; height: 24px; 
+            font-size: 14px; cursor: pointer; z-index: 15; display: none;
+            box-shadow: 0 0 10px red;
+        }
         .link-card-wrapper:hover .delete-btn { display: block; }
-        .add-link-btn { background: #222; border: 2px dashed #444; border-radius: 15px; color: #888; font-size: 24px; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; min-height: 95px; }
-        .add-link-btn:hover { border-color: var(--neon-primary); color: var(--neon-primary); }
-        .footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
+
+        .add-link-btn { 
+            background: #111; border: 2px dashed #333; border-radius: 5px; 
+            color: #444; font-size: 30px; cursor: pointer; transition: 0.3s; 
+            display: flex; justify-content: center; align-items: center; min-height: 110px; 
+        }
+        .add-link-btn:hover { border-color: var(--neon-primary); color: var(--neon-primary); box-shadow: inset 0 0 15px var(--glow); }
+
+        .footer { text-align: center; padding: 60px; color: #444; border-top: 1px solid #111; letter-spacing: 1px; }
 
         @media (max-width: 600px) {
-            .splash-text { font-size: 2.5rem; }
-            .gaming-logo { font-size: 22px; }
-            .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .splash-text { font-size: 2.2rem; }
+            .gaming-logo { font-size: 24px; }
+            .navbar { padding: 10px 15px; }
+            .search-form { margin: 0 10px; }
+            .link-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
             .theme-switcher { display: none; }
         }
     </style>
@@ -115,7 +189,7 @@
 <body class="theme-cyan">
 
     <div id="splash-screen">
-        <div class="splash-text">বাবাই ব্রাউজার</div>
+        <div class="splash-text">BABAI BROWSER</div>
     </div>
 
     <div id="main-content" style="display:none;">
@@ -124,7 +198,7 @@
             
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
-                    <input type="text" id="urlInput" placeholder="সার্চ করুন বা ইউআরএল লিখুন..." enterkeyhint="search">
+                    <input type="text" id="urlInput" placeholder="READY TO SEARCH..." enterkeyhint="search">
                 </div>
             </form>
 
@@ -135,13 +209,13 @@
                 <div class="theme-dot" style="background:#ff3131" onclick="setTheme('theme-red')"></div>
             </div>
 
-            <button onclick="resetToDefault()" style="background:none; border:1px solid #444; color:#666; cursor:pointer; padding:5px 10px; border-radius:5px; font-size:12px;">রিসেট</button>
+            <button onclick="resetToDefault()" style="background:none; border:1px solid #444; color:#666; cursor:pointer; padding:8px 12px; border-radius:3px; font-size:11px; text-transform:uppercase;">Reset</button>
         </div>
 
         <div class="container" id="dashboard"></div>
 
         <div class="footer">
-            &copy; ২০২৫ বাবাই ব্রাউজার | সর্বস্বত্ব সংরক্ষিত - <strong>বাবাই</strong>
+            &copy; 2025 BABAI BROWSER | SYSTEM SECURED
         </div>
     </div>
 
