@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>বাবাই ব্রাউজার</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-primary: #00f7ff;
@@ -25,12 +26,12 @@
             color: white;
         }
 
-        /* গেমিং লোগো স্টাইল (BABAI) */
+        /* Rubik Gemstones ফন্ট সহ গেমিং লোগো */
         .gaming-logo {
-            font-family: 'Arial Black', Gadget, sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 3px;
+            font-family: 'Rubik Gemstones', system-ui; /* আপনার পছন্দের ফন্ট */
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
             background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
@@ -39,7 +40,7 @@
             background-clip: text;
             color: transparent;
             animation: rgb-glow 8s linear infinite;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
         }
 
         @keyframes rgb-glow {
@@ -105,7 +106,7 @@
 
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
-            .gaming-logo { font-size: 18px; }
+            .gaming-logo { font-size: 22px; }
             .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
             .theme-switcher { display: none; }
         }
@@ -145,7 +146,6 @@
     </div>
 
     <script>
-        // ডেটা আগের মতোই সংরক্ষিত থাকবে
         const defaultData = [
             { title: "যোগাযোগ ও সোশ্যাল মিডিয়া", links: [
                 { name: "WhatsApp Web", url: "https://web.whatsapp.com" },
