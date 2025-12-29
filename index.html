@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বাবাই ব্রাউজার - কাস্টম</title>
+    <title>বাবাই ব্রাউজার</title>
     <style>
         :root {
             --neon-cyan: #00f7ff;
@@ -14,8 +14,7 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-dark);
             color: white;
@@ -66,7 +65,6 @@
         .category-section {
             margin-bottom: 40px; background: var(--section-bg);
             padding: 25px; border-radius: 20px; border: 1px solid #222;
-            position: relative;
         }
 
         .category-header {
@@ -76,45 +74,44 @@
 
         .category-title {
             font-size: 1.5rem; color: var(--neon-cyan); font-weight: bold;
-            cursor: pointer; border-bottom: 1px dashed transparent;
+            cursor: pointer;
         }
-        .category-title:hover { border-color: var(--neon-cyan); }
 
         .link-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px;
         }
 
         /* সাইট কার্ড */
+        .link-card-wrapper { position: relative; }
         .link-card {
-            background: var(--card-bg); padding: 15px; border-radius: 15px;
-            text-align: center; border: 1px solid #333; position: relative;
+            background: var(--card-bg); padding: 15px 10px; border-radius: 15px;
+            text-align: center; border: 1px solid #333;
             text-decoration: none; color: white; transition: 0.3s;
             display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-        .link-card:hover { transform: translateY(-5px); border-color: var(--neon-magenta); }
+        .link-card:hover { transform: translateY(-5px); border-color: var(--neon-magenta); box-shadow: 0 0 15px rgba(255,0,255,0.2); }
         .link-card img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 3px; }
-        .link-card span { font-size: 0.8rem; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .link-card span { font-size: 0.75rem; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         /* রিমুভ বাটন */
         .delete-btn {
             position: absolute; top: -5px; right: -5px;
-            background: red; color: white; border: none; border-radius: 50%;
-            width: 20px; height: 20px; font-size: 12px; cursor: pointer;
-            display: none; z-index: 10;
+            background: #ff4444; color: white; border: none; border-radius: 50%;
+            width: 22px; height: 22px; font-size: 12px; cursor: pointer;
+            z-index: 10; display: none;
         }
-        .link-card:hover .delete-btn { display: block; }
+        .link-card-wrapper:hover .delete-btn { display: block; }
 
         /* অ্যাড বাটন */
         .add-link-btn {
             background: #222; border: 2px dashed #444; border-radius: 15px;
             color: #888; font-size: 24px; cursor: pointer; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center; min-height: 100px;
+            display: flex; justify-content: center; align-items: center; min-height: 95px;
         }
         .add-link-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
 
         .footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
 
-        /* রেসপন্সিভ */
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
             .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -129,45 +126,106 @@
 
     <div id="main-content" style="display:none;">
         <div class="navbar">
-            <div style="font-size: 22px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
+            <div style="font-size: 22px; font-weight: bold; color: var(--neon-magenta); cursor:pointer; text-shadow: 0 0 10px var(--neon-magenta);" onclick="location.reload()">BABAI</div>
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
                     <input type="text" id="urlInput" placeholder="সার্চ করুন বা ইউআরএল লিখুন..." enterkeyhint="search">
                 </div>
             </form>
-            <button onclick="resetData()" style="background:none; border:1px solid #444; color:#666; cursor:pointer; padding:5px 10px; border-radius:5px; font-size:12px;">রিসেট</button>
+            <button onclick="resetToDefault()" style="background:none; border:1px solid #444; color:#666; cursor:pointer; padding:5px 10px; border-radius:5px; font-size:12px;">রিসেট</button>
         </div>
 
         <div class="container" id="dashboard"></div>
 
         <div class="footer">
-            &copy; ২০২৫ বাবাই ব্রাউজার | <strong>বাবাই</strong> দ্বারা তৈরি
+            &copy; ২০২৫ বাবাই ব্রাউজার | সর্বস্বত্ব সংরক্ষিত - <strong>বাবাই</strong>
         </div>
     </div>
 
     <script>
-        // ডিফল্ট ডেটা
         const defaultData = [
             { title: "যোগাযোগ ও সোশ্যাল মিডিয়া", links: [
-                { name: "WhatsApp", url: "https://web.whatsapp.com" },
+                { name: "WhatsApp Web", url: "https://web.whatsapp.com" },
                 { name: "Facebook", url: "https://www.facebook.com" },
-                { name: "X", url: "https://www.x.com" }
+                { name: "X", url: "https://www.x.com" },
+                { name: "Bengali Matrimony", url: "https://www.bengalimatrimony.com" },
+                { name: "Shaadi.com", url: "https://www.shaadi.com" }
             ]},
             { title: "এআই ও সার্চ", links: [
+                { name: "Google Search", url: "https://www.google.com" },
                 { name: "ChatGPT", url: "https://chat.openai.com" },
                 { name: "Gemini", url: "https://gemini.google.com" },
-                { name: "Google", url: "https://www.google.com" }
+                { name: "Deep Seek", url: "https://www.deepseek.com" },
+                { name: "Grok", url: "https://x.ai" },
+                { name: "Google Translator", url: "https://translate.google.com" }
             ]},
             { title: "ইমেইল ও বিনোদন", links: [
+                { name: "YouTube", url: "https://www.youtube.com" },
                 { name: "Gmail", url: "https://mail.google.com" },
-                { name: "YouTube", url: "https://www.youtube.com" }
+                { name: "Yahoo Mail", url: "https://mail.yahoo.com" },
+                { name: "Zoho Mail", url: "https://www.zoho.com/mail" },
+                { name: "Google Meet", url: "https://meet.google.com" }
+            ]},
+            { title: "ই-কমার্স ও শপিং", links: [
+                { name: "Amazon India", url: "https://www.amazon.in" },
+                { name: "Flipkart", url: "https://www.flipkart.com" },
+                { name: "Myntra", url: "https://www.myntra.com" },
+                { name: "Meesho", url: "https://www.meesho.com" },
+                { name: "Shopsy", url: "https://www.shopsy.in" },
+                { name: "Snapdeal", url: "https://www.snapdeal.com" },
+                { name: "Ajio", url: "https://www.ajio.com" },
+                { name: "JioMart", url: "https://www.jiomart.com" },
+                { name: "BigBasket", url: "https://www.bigbasket.com" },
+                { name: "Lenskart", url: "https://www.lenskart.com" },
+                { name: "Nykaa Fashion", url: "https://www.nykaafashion.com" },
+                { name: "Reliance Digital", url: "https://www.reliancedigital.in" },
+                { name: "OLX", url: "https://www.olx.in" }
+            ]},
+            { title: "ব্যাঙ্কিং ও ফিন্যান্স", links: [
+                { name: "SBI Net Banking", url: "https://www.onlinesbi.sbi" },
+                { name: "ICICI Net Banking", url: "https://www.icicibank.com" },
+                { name: "HDFC Net Banking", url: "https://www.hdfcbank.com" },
+                { name: "Axis Bank Net Banking", url: "https://www.axisbank.com" },
+                { name: "Bandhan Bank Net Banking", url: "https://www.bandhanbank.com" },
+                { name: "PNB Net Banking", url: "https://www.pnbindia.in" },
+                { name: "Union Bank Net Banking", url: "https://www.unionbankofindia.co.in" },
+                { name: "Indian Bank Net Banking", url: "https://www.indianbank.in" },
+                { name: "Bank of Baroda Net Banking", url: "https://www.bankofbaroda.in" },
+                { name: "IndusInd Bank Net Banking", url: "https://www.indusind.com" },
+                { name: "Yes Bank Net Banking", url: "https://www.yesbank.in" },
+                { name: "UCO Bank Net Banking", url: "https://www.ucobank.com" }
+            ]},
+            { title: "স্বাস্থ্যসেবা ও মেডিসিন", links: [
+                { name: "Truemeds", url: "https://www.truemeds.in" },
+                { name: "PharmEasy", url: "https://www.pharmeasy.in" },
+                { name: "Tata 1mg", url: "https://www.1mg.com" },
+                { name: "Apollo 247", url: "https://www.apollo247.com" },
+                { name: "Netmeds", url: "https://www.netmeds.com" }
+            ]},
+            { title: "ভ্রমণ, খাদ্য ও বিনোদন", links: [
+                { name: "IRCTC", url: "https://www.irctc.co.in" },
+                { name: "Zomato", url: "https://www.zomato.com" },
+                { name: "Swiggy", url: "https://www.swiggy.com" },
+                { name: "Domino's", url: "https://www.dominos.co.in" },
+                { name: "Pizza Hut", url: "https://www.pizzahut.co.in" },
+                { name: "KFC", url: "https://www.kfc.co.in" },
+                { name: "MakeMyTrip", url: "https://www.makemytrip.com" },
+                { name: "Trivago", url: "https://www.trivago.in" },
+                { name: "Agoda", url: "https://www.agoda.com" },
+                { name: "Booking.com", url: "https://www.booking.com" },
+                { name: "Skyscanner", url: "https://www.skyscanner.co.in" },
+                { name: "Goibibo", url: "https://www.goibibo.com" },
+                { name: "Yatra", url: "https://www.yatra.com" },
+                { name: "BookMyShow", url: "https://www.bookmyshow.com" },
+                { name: "OYO", url: "https://www.oyorooms.com" },
+                { name: "redBus", url: "https://www.redbus.in" }
             ]}
         ];
 
-        let browserData = JSON.parse(localStorage.getItem('babaiData')) || defaultData;
+        let browserData = JSON.parse(localStorage.getItem('babaiDataV2')) || defaultData;
 
         function saveData() {
-            localStorage.setItem('babaiData', JSON.stringify(browserData));
+            localStorage.setItem('babaiDataV2', JSON.stringify(browserData));
             renderDashboard();
         }
 
@@ -188,22 +246,20 @@
 
                 const grid = section.querySelector(`#grid-${catIndex}`);
 
-                // সাইট কার্ডগুলো তৈরি করা
                 cat.links.forEach((link, linkIndex) => {
-                    const iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(link.url).hostname}`;
-                    const card = document.createElement('div');
-                    card.className = 'link-card-wrapper';
-                    card.innerHTML = `
+                    const iconUrl = `https://www.google.com/s2/favicons?sz=128&domain=${new URL(link.url).hostname}`;
+                    const cardWrapper = document.createElement('div');
+                    cardWrapper.className = 'link-card-wrapper';
+                    cardWrapper.innerHTML = `
+                        <button class="delete-btn" onclick="removeLink(event, ${catIndex}, ${linkIndex})">✕</button>
                         <a href="${link.url}" target="_blank" class="link-card">
-                            <button class="delete-btn" onclick="removeLink(event, ${catIndex}, ${linkIndex})">✕</button>
                             <img src="${iconUrl}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1243/1243420.png'">
                             <span>${link.name}</span>
                         </a>
                     `;
-                    grid.appendChild(card);
+                    grid.appendChild(cardWrapper);
                 });
 
-                // নতুন সাইট যোগ করার বাটন
                 const addBtn = document.createElement('div');
                 addBtn.className = 'add-link-btn';
                 addBtn.innerText = '+';
@@ -214,37 +270,29 @@
             });
         }
 
-        // ক্যাটাগরির নাম পরিবর্তন
         function editCategoryTitle(index) {
             const newTitle = prompt("নতুন ক্যাটাগরি নাম লিখুন:", browserData[index].title);
-            if (newTitle) {
-                browserData[index].title = newTitle;
-                saveData();
-            }
+            if (newTitle) { browserData[index].title = newTitle; saveData(); }
         }
 
-        // নতুন লিঙ্ক যোগ করা
         function addLink(catIndex) {
-            const name = prompt("সাইটের নাম লিখুন:");
-            const url = prompt("ইউআরএল (URL) লিখুন (যেমন: google.com):");
+            const name = prompt("সাইটের নাম:");
+            const url = prompt("ইউআরএল (যেমন: google.com):");
             if (name && url) {
-                let formattedUrl = url.startsWith('http') ? url : 'https://' + url;
-                browserData[catIndex].links.push({ name: name, url: formattedUrl });
+                let fUrl = url.startsWith('http') ? url : 'https://' + url;
+                browserData[catIndex].links.push({ name: name, url: fUrl });
                 saveData();
             }
         }
 
-        // লিঙ্ক মুছে ফেলা
-        function removeLink(event, catIndex, linkIndex) {
-            event.preventDefault();
-            event.stopPropagation();
-            if(confirm("আপনি কি এই সাইটটি মুছে ফেলতে চান?")) {
-                browserData[catIndex].links.splice(linkIndex, 1);
+        function removeLink(e, catIdx, linkIdx) {
+            e.preventDefault(); e.stopPropagation();
+            if(confirm("এই সাইটটি মুছে ফেলবেন?")) {
+                browserData[catIdx].links.splice(linkIdx, 1);
                 saveData();
             }
         }
 
-        // সার্চ ফাংশন
         function launchURL(event) {
             event.preventDefault();
             const val = document.getElementById('urlInput').value.trim();
@@ -257,15 +305,13 @@
             return false;
         }
 
-        // রিসেট ফাংশন
-        function resetData() {
-            if(confirm("আপনি কি সব সেটিংস মুছে ডিফল্ট অবস্থায় ফিরে যেতে চান?")) {
-                localStorage.removeItem('babaiData');
+        function resetToDefault() {
+            if(confirm("সব পরিবর্তন মুছে ফেলে আগের সব ওয়েবসাইট কি ফিরে পেতে চান?")) {
+                localStorage.removeItem('babaiDataV2');
                 location.reload();
             }
         }
 
-        // লোড এনিমেশন
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('splash-screen').style.opacity = '0';
