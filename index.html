@@ -10,6 +10,7 @@
             --neon-magenta: #ff00ff;
             --bg-dark: #050505;
             --card-bg: #1a1a1d;
+            --section-bg: #0f0f12;
         }
 
         body, html {
@@ -52,6 +53,7 @@
             100% { transform: scale(0.9); opacity: 0.5; }
         }
 
+        /* নেভিগেশন বার */
         .navbar {
             background: #111;
             padding: 15px 30px;
@@ -61,6 +63,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .search-form {
@@ -88,56 +91,70 @@
             font-size: 16px;
         }
 
+        /* মেইন কন্টেনার */
         .container {
-            padding: 40px 5%;
+            padding: 30px 5%;
             max-width: 1400px;
             margin: auto;
         }
 
+        /* আলাদা ক্লাসিফিকেশন সেকশন */
         .category-section {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            background: var(--section-bg);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #222;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
         }
 
         .category-title {
-            font-size: 1.5rem;
-            border-left: 4px solid var(--neon-magenta);
-            padding-left: 15px;
-            margin-bottom: 25px;
+            font-size: 1.6rem;
+            font-weight: bold;
             color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
         }
 
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 20px;
         }
 
         .link-card {
             background: var(--card-bg);
-            padding: 20px 10px;
+            padding: 15px 10px;
             border-radius: 15px;
             text-align: center;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             border: 1px solid #333;
             text-decoration: none;
             color: #eee;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .link-card img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: white; /* লোগো পরিষ্কার দেখানোর জন্য */
-            padding: 2px;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: white;
+            padding: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .link-card span {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
@@ -146,22 +163,26 @@
         }
 
         .link-card:hover {
-            border-color: var(--neon-cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
-            background: #252529;
+            border-color: var(--neon-magenta);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.2);
+            background: #25252b;
         }
 
+        /* ফুটার */
         .footer {
             text-align: center;
             padding: 60px 20px;
             color: #666;
             border-top: 1px solid #222;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
-            .link-grid { grid-template-columns: repeat(3, 1fr); }
+            .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .category-section { padding: 15px; }
+            .category-title { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -173,17 +194,16 @@
 
     <div id="main-content" style="display:none;">
         <div class="navbar">
-            <div style="font-size: 20px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
+            <div style="font-size: 24px; font-weight: bold; color: var(--neon-magenta); cursor:pointer; text-shadow: 0 0 10px var(--neon-magenta);" onclick="location.reload()">BABAI</div>
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
-                    <input type="text" id="urlInput" placeholder="ইউআরএল বা অনুসন্ধান লিখুন..." enterkeyhint="search">
+                    <input type="text" id="urlInput" placeholder="এখানে লিখুন (যেমন: google.com বা খবর)..." enterkeyhint="search">
                 </div>
-                <button type="submit" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold; margin-left: 10px;">খুলুন</button>
+                <button type="submit" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold; margin-left: 10px; transition: 0.3s;" onmouseover="this.style.boxShadow='0 0 15px var(--neon-cyan)'" onmouseout="this.style.boxShadow='none'">খুলুন</button>
             </form>
         </div>
 
         <div class="container">
-            
             <div id="dashboard"></div>
 
             <div class="footer">
@@ -193,10 +213,10 @@
     </div>
 
     <script>
-        // ওয়েবসাইট ডেটা
+        // ওয়েবসাইট ক্যাটাগরি ডেটা
         const categories = [
             {
-                title: "যোগাযোগ ও সোশ্যাল মিডিয়া",
+                title: "যোগাযোগ ও সোশ্যাল মিডিয়া",
                 links: [
                     { name: "WhatsApp", url: "https://web.whatsapp.com" },
                     { name: "Facebook", url: "https://www.facebook.com" },
@@ -212,7 +232,7 @@
                     { name: "Gemini", url: "https://gemini.google.com" },
                     { name: "DeepSeek", url: "https://www.deepseek.com" },
                     { name: "Grok", url: "https://x.ai" },
-                    { name: "Google", url: "https://www.google.com" },
+                    { name: "Google Search", url: "https://www.google.com" },
                     { name: "Translator", url: "https://translate.google.com" }
                 ]
             },
@@ -229,7 +249,7 @@
             {
                 title: "ই-কমার্স ও শপিং",
                 links: [
-                    { name: "Amazon", url: "https://www.amazon.in" },
+                    { name: "Amazon India", url: "https://www.amazon.in" },
                     { name: "Flipkart", url: "https://www.flipkart.com" },
                     { name: "Myntra", url: "https://www.myntra.com" },
                     { name: "Meesho", url: "https://www.meesho.com" },
@@ -247,22 +267,22 @@
             {
                 title: "ব্যাঙ্কিং ও ফিন্যান্স",
                 links: [
-                    { name: "SBI", url: "https://www.onlinesbi.sbi" },
-                    { name: "HDFC", url: "https://www.hdfcbank.com" },
-                    { name: "ICICI", url: "https://www.icicibank.com" },
-                    { name: "Axis", url: "https://www.axisbank.com" },
-                    { name: "PNB", url: "https://www.pnbindia.in" },
-                    { name: "Bandhan", url: "https://www.bandhanbank.com" },
+                    { name: "SBI Net Banking", url: "https://www.onlinesbi.sbi" },
+                    { name: "HDFC Banking", url: "https://www.hdfcbank.com" },
+                    { name: "ICICI Banking", url: "https://www.icicibank.com" },
+                    { name: "Axis Banking", url: "https://www.axisbank.com" },
+                    { name: "PNB Banking", url: "https://www.pnbindia.in" },
+                    { name: "Bandhan Bank", url: "https://www.bandhanbank.com" },
                     { name: "Union Bank", url: "https://www.unionbankofindia.co.in" },
                     { name: "Indian Bank", url: "https://www.indianbank.in" },
                     { name: "Bank of Baroda", url: "https://www.bankofbaroda.in" },
-                    { name: "IndusInd", url: "https://www.indusind.com" },
+                    { name: "IndusInd Bank", url: "https://www.indusind.com" },
                     { name: "Yes Bank", url: "https://www.yesbank.in" },
                     { name: "UCO Bank", url: "https://www.ucobank.com" }
                 ]
             },
             {
-                title: "স্বাস্থ্যসেবা",
+                title: "স্বাস্থ্যসেবা ও মেডিসিন",
                 links: [
                     { name: "Tata 1mg", url: "https://www.1mg.com" },
                     { name: "PharmEasy", url: "https://www.pharmeasy.in" },
@@ -279,9 +299,14 @@
                     { name: "Goibibo", url: "https://www.goibibo.com" },
                     { name: "Yatra", url: "https://www.yatra.com" },
                     { name: "Booking.com", url: "https://www.booking.com" },
+                    { name: "Trivago", url: "https://www.trivago.in" },
+                    { name: "Agoda", url: "https://www.agoda.com" },
+                    { name: "Skyscanner", url: "https://www.skyscanner.co.in" },
                     { name: "Zomato", url: "https://www.zomato.com" },
                     { name: "Swiggy", url: "https://www.swiggy.com" },
                     { name: "Domino's", url: "https://www.dominos.co.in" },
+                    { name: "Pizza Hut", url: "https://www.pizzahut.co.in" },
+                    { name: "KFC", url: "https://www.kfc.co.in" },
                     { name: "BookMyShow", url: "https://www.bookmyshow.com" },
                     { name: "OYO", url: "https://www.oyorooms.com" },
                     { name: "redBus", url: "https://www.redbus.in" }
@@ -289,17 +314,20 @@
             }
         ];
 
-        // ড্যাশবোর্ড তৈরি করা
+        // ড্যাশবোর্ড জেনারেটর
         const dashboard = document.getElementById('dashboard');
         categories.forEach(cat => {
-            let section = document.createElement('div');
+            const section = document.createElement('div');
             section.className = 'category-section';
             
-            let html = `<div class="category-title">${cat.title}</div><div class="link-grid">`;
+            let html = `
+                <div class="category-header">
+                    <div class="category-title">${cat.title}</div>
+                </div>
+                <div class="link-grid">`;
             
             cat.links.forEach(link => {
-                // Google Favicon API ব্যবহার করে লোগো আনা
-                const iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(link.url).hostname}`;
+                const iconUrl = `https://www.google.com/s2/favicons?sz=128&domain=${new URL(link.url).hostname}`;
                 html += `
                     <a class="link-card" href="${link.url}" target="_blank">
                         <img src="${iconUrl}" alt="${link.name}">
@@ -312,7 +340,7 @@
             dashboard.appendChild(section);
         });
 
-        // স্টার্ট-আপ এনিমেশন
+        // স্টার্ট-আপ এনিমেশন (৩ সেকেন্ড)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -325,6 +353,7 @@
             }, 3000);
         });
 
+        // সার্চ ফাংশন
         function launchURL(event) {
             event.preventDefault();
             const input = document.getElementById('urlInput');
