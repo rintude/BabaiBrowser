@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বাবাই ব্রাউজার</title>
+    <title>বাবাই ব্রাউজার - কাস্টম</title>
     <style>
         :root {
             --neon-cyan: #00f7ff;
@@ -16,173 +16,108 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-dark);
             color: white;
-            overflow-x: hidden;
         }
 
         /* স্টার্ট-আপ এনিমেশন */
         #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 1s ease-out;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000;
+            transition: opacity 0.8s ease-out;
         }
 
         .splash-text {
-            font-size: 5rem;
-            font-weight: bold;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-            letter-spacing: 10px;
-            animation: pulse 2s infinite ease-in-out;
+            font-size: 4rem; font-weight: bold; color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.5; }
+            0%, 100% { transform: scale(0.9); opacity: 0.6; }
             50% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.5; }
         }
 
-        /* নেভিগেশন বার */
+        /* নেভিগেশন */
         .navbar {
-            background: #111;
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
+            background: #111; padding: 15px 30px;
+            display: flex; align-items: center;
             border-bottom: 2px solid var(--neon-cyan);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .search-form {
-            flex-grow: 1;
-            display: flex;
-            margin: 0 20px;
-        }
-
+        .search-form { flex-grow: 1; display: flex; margin: 0 20px; }
         .search-bar {
-            width: 100%;
-            display: flex;
-            background: #222;
-            border-radius: 30px;
-            padding: 5px 20px;
-            border: 1px solid #444;
+            width: 100%; display: flex; background: #222;
+            border-radius: 30px; padding: 5px 20px; border: 1px solid #444;
         }
-
         .search-bar input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 10px;
-            outline: none;
-            font-size: 16px;
+            width: 100%; background: transparent; border: none;
+            color: white; padding: 10px; outline: none; font-size: 16px;
         }
 
-        /* মেইন কন্টেনার */
-        .container {
-            padding: 30px 5%;
-            max-width: 1400px;
-            margin: auto;
-        }
+        /* কন্টেনার */
+        .container { padding: 30px 5%; max-width: 1400px; margin: auto; }
 
-        /* আলাদা ক্লাসিফিকেশন সেকশন */
         .category-section {
-            margin-bottom: 40px;
-            background: var(--section-bg);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid #222;
+            margin-bottom: 40px; background: var(--section-bg);
+            padding: 25px; border-radius: 20px; border: 1px solid #222;
+            position: relative;
         }
 
         .category-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px;
         }
 
         .category-title {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+            font-size: 1.5rem; color: var(--neon-cyan); font-weight: bold;
+            cursor: pointer; border-bottom: 1px dashed transparent;
         }
+        .category-title:hover { border-color: var(--neon-cyan); }
 
         .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 20px;
         }
 
+        /* সাইট কার্ড */
         .link-card {
-            background: var(--card-bg);
-            padding: 15px 10px;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #333;
-            text-decoration: none;
-            color: #eee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            background: var(--card-bg); padding: 15px; border-radius: 15px;
+            text-align: center; border: 1px solid #333; position: relative;
+            text-decoration: none; color: white; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
+        .link-card:hover { transform: translateY(-5px); border-color: var(--neon-magenta); }
+        .link-card img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 3px; }
+        .link-card span { font-size: 0.8rem; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        .link-card img {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            background: white;
-            padding: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        /* রিমুভ বাটন */
+        .delete-btn {
+            position: absolute; top: -5px; right: -5px;
+            background: red; color: white; border: none; border-radius: 50%;
+            width: 20px; height: 20px; font-size: 12px; cursor: pointer;
+            display: none; z-index: 10;
         }
+        .link-card:hover .delete-btn { display: block; }
 
-        .link-card span {
-            font-size: 0.85rem;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
+        /* অ্যাড বাটন */
+        .add-link-btn {
+            background: #222; border: 2px dashed #444; border-radius: 15px;
+            color: #888; font-size: 24px; cursor: pointer; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center; min-height: 100px;
         }
+        .add-link-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
 
-        .link-card:hover {
-            border-color: var(--neon-magenta);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.2);
-            background: #25252b;
-        }
+        .footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
 
-        /* ফুটার */
-        .footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-            border-top: 1px solid #222;
-            letter-spacing: 1px;
-        }
-
+        /* রেসপন্সিভ */
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
             .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-            .category-section { padding: 15px; }
-            .category-title { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -194,170 +129,125 @@
 
     <div id="main-content" style="display:none;">
         <div class="navbar">
-            <div style="font-size: 24px; font-weight: bold; color: var(--neon-magenta); cursor:pointer; text-shadow: 0 0 10px var(--neon-magenta);" onclick="location.reload()">BABAI</div>
+            <div style="font-size: 22px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
-                    <input type="text" id="urlInput" placeholder="এখানে লিখুন (যেমন: google.com বা খবর)..." enterkeyhint="search">
+                    <input type="text" id="urlInput" placeholder="সার্চ করুন বা ইউআরএল লিখুন..." enterkeyhint="search">
                 </div>
-                <button type="submit" style="background:var(--neon-cyan); border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold; margin-left: 10px; transition: 0.3s;" onmouseover="this.style.boxShadow='0 0 15px var(--neon-cyan)'" onmouseout="this.style.boxShadow='none'">খুলুন</button>
             </form>
+            <button onclick="resetData()" style="background:none; border:1px solid #444; color:#666; cursor:pointer; padding:5px 10px; border-radius:5px; font-size:12px;">রিসেট</button>
         </div>
 
-        <div class="container">
-            <div id="dashboard"></div>
+        <div class="container" id="dashboard"></div>
 
-            <div class="footer">
-                &copy; ২০২৫ বাবাই ব্রাউজার | সর্বস্বত্ব সংরক্ষিত - <strong>বাবাই</strong>
-            </div>
+        <div class="footer">
+            &copy; ২০২৫ বাবাই ব্রাউজার | <strong>বাবাই</strong> দ্বারা তৈরি
         </div>
     </div>
 
     <script>
-        // ওয়েবসাইট ক্যাটাগরি ডেটা
-        const categories = [
-            {
-                title: "যোগাযোগ ও সোশ্যাল মিডিয়া",
-                links: [
-                    { name: "WhatsApp", url: "https://web.whatsapp.com" },
-                    { name: "Facebook", url: "https://www.facebook.com" },
-                    { name: "X", url: "https://www.x.com" },
-                    { name: "Bengali Matrimony", url: "https://www.bengalimatrimony.com" },
-                    { name: "Shaadi.com", url: "https://www.shaadi.com" }
-                ]
-            },
-            {
-                title: "এআই ও সার্চ",
-                links: [
-                    { name: "ChatGPT", url: "https://chat.openai.com" },
-                    { name: "Gemini", url: "https://gemini.google.com" },
-                    { name: "DeepSeek", url: "https://www.deepseek.com" },
-                    { name: "Grok", url: "https://x.ai" },
-                    { name: "Google Search", url: "https://www.google.com" },
-                    { name: "Translator", url: "https://translate.google.com" }
-                ]
-            },
-            {
-                title: "ইমেইল ও বিনোদন",
-                links: [
-                    { name: "Gmail", url: "https://mail.google.com" },
-                    { name: "YouTube", url: "https://www.youtube.com" },
-                    { name: "Yahoo Mail", url: "https://mail.yahoo.com" },
-                    { name: "Zoho Mail", url: "https://www.zoho.com/mail" },
-                    { name: "Google Meet", url: "https://meet.google.com" }
-                ]
-            },
-            {
-                title: "ই-কমার্স ও শপিং",
-                links: [
-                    { name: "Amazon India", url: "https://www.amazon.in" },
-                    { name: "Flipkart", url: "https://www.flipkart.com" },
-                    { name: "Myntra", url: "https://www.myntra.com" },
-                    { name: "Meesho", url: "https://www.meesho.com" },
-                    { name: "Shopsy", url: "https://www.shopsy.in" },
-                    { name: "Ajio", url: "https://www.ajio.com" },
-                    { name: "Nykaa", url: "https://www.nykaafashion.com" },
-                    { name: "Reliance Digital", url: "https://www.reliancedigital.in" },
-                    { name: "JioMart", url: "https://www.jiomart.com" },
-                    { name: "BigBasket", url: "https://www.bigbasket.com" },
-                    { name: "Lenskart", url: "https://www.lenskart.com" },
-                    { name: "Snapdeal", url: "https://www.snapdeal.com" },
-                    { name: "OLX", url: "https://www.olx.in" }
-                ]
-            },
-            {
-                title: "ব্যাঙ্কিং ও ফিন্যান্স",
-                links: [
-                    { name: "SBI Net Banking", url: "https://www.onlinesbi.sbi" },
-                    { name: "HDFC Banking", url: "https://www.hdfcbank.com" },
-                    { name: "ICICI Banking", url: "https://www.icicibank.com" },
-                    { name: "Axis Banking", url: "https://www.axisbank.com" },
-                    { name: "PNB Banking", url: "https://www.pnbindia.in" },
-                    { name: "Bandhan Bank", url: "https://www.bandhanbank.com" },
-                    { name: "Union Bank", url: "https://www.unionbankofindia.co.in" },
-                    { name: "Indian Bank", url: "https://www.indianbank.in" },
-                    { name: "Bank of Baroda", url: "https://www.bankofbaroda.in" },
-                    { name: "IndusInd Bank", url: "https://www.indusind.com" },
-                    { name: "Yes Bank", url: "https://www.yesbank.in" },
-                    { name: "UCO Bank", url: "https://www.ucobank.com" }
-                ]
-            },
-            {
-                title: "স্বাস্থ্যসেবা ও মেডিসিন",
-                links: [
-                    { name: "Tata 1mg", url: "https://www.1mg.com" },
-                    { name: "PharmEasy", url: "https://www.pharmeasy.in" },
-                    { name: "Netmeds", url: "https://www.netmeds.com" },
-                    { name: "Apollo 24/7", url: "https://www.apollo247.com" },
-                    { name: "Truemeds", url: "https://www.truemeds.in" }
-                ]
-            },
-            {
-                title: "ভ্রমণ, খাদ্য ও বিনোদন",
-                links: [
-                    { name: "IRCTC", url: "https://www.irctc.co.in" },
-                    { name: "MakeMyTrip", url: "https://www.makemytrip.com" },
-                    { name: "Goibibo", url: "https://www.goibibo.com" },
-                    { name: "Yatra", url: "https://www.yatra.com" },
-                    { name: "Booking.com", url: "https://www.booking.com" },
-                    { name: "Trivago", url: "https://www.trivago.in" },
-                    { name: "Agoda", url: "https://www.agoda.com" },
-                    { name: "Skyscanner", url: "https://www.skyscanner.co.in" },
-                    { name: "Zomato", url: "https://www.zomato.com" },
-                    { name: "Swiggy", url: "https://www.swiggy.com" },
-                    { name: "Domino's", url: "https://www.dominos.co.in" },
-                    { name: "Pizza Hut", url: "https://www.pizzahut.co.in" },
-                    { name: "KFC", url: "https://www.kfc.co.in" },
-                    { name: "BookMyShow", url: "https://www.bookmyshow.com" },
-                    { name: "OYO", url: "https://www.oyorooms.com" },
-                    { name: "redBus", url: "https://www.redbus.in" }
-                ]
-            }
+        // ডিফল্ট ডেটা
+        const defaultData = [
+            { title: "যোগাযোগ ও সোশ্যাল মিডিয়া", links: [
+                { name: "WhatsApp", url: "https://web.whatsapp.com" },
+                { name: "Facebook", url: "https://www.facebook.com" },
+                { name: "X", url: "https://www.x.com" }
+            ]},
+            { title: "এআই ও সার্চ", links: [
+                { name: "ChatGPT", url: "https://chat.openai.com" },
+                { name: "Gemini", url: "https://gemini.google.com" },
+                { name: "Google", url: "https://www.google.com" }
+            ]},
+            { title: "ইমেইল ও বিনোদন", links: [
+                { name: "Gmail", url: "https://mail.google.com" },
+                { name: "YouTube", url: "https://www.youtube.com" }
+            ]}
         ];
 
-        // ড্যাশবোর্ড জেনারেটর
-        const dashboard = document.getElementById('dashboard');
-        categories.forEach(cat => {
-            const section = document.createElement('div');
-            section.className = 'category-section';
-            
-            let html = `
-                <div class="category-header">
-                    <div class="category-title">${cat.title}</div>
-                </div>
-                <div class="link-grid">`;
-            
-            cat.links.forEach(link => {
-                const iconUrl = `https://www.google.com/s2/favicons?sz=128&domain=${new URL(link.url).hostname}`;
-                html += `
-                    <a class="link-card" href="${link.url}" target="_blank">
-                        <img src="${iconUrl}" alt="${link.name}">
-                        <span>${link.name}</span>
-                    </a>`;
-            });
-            
-            html += `</div>`;
-            section.innerHTML = html;
-            dashboard.appendChild(section);
-        });
+        let browserData = JSON.parse(localStorage.getItem('babaiData')) || defaultData;
 
-        // স্টার্ট-আপ এনিমেশন (৩ সেকেন্ড)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                const main = document.getElementById('main-content');
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    main.style.display = 'block';
-                }, 1000);
-            }, 3000);
-        });
+        function saveData() {
+            localStorage.setItem('babaiData', JSON.stringify(browserData));
+            renderDashboard();
+        }
+
+        function renderDashboard() {
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            browserData.forEach((cat, catIndex) => {
+                const section = document.createElement('div');
+                section.className = 'category-section';
+
+                section.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-title" onclick="editCategoryTitle(${catIndex})">${cat.title} ✎</div>
+                    </div>
+                    <div class="link-grid" id="grid-${catIndex}"></div>
+                `;
+
+                const grid = section.querySelector(`#grid-${catIndex}`);
+
+                // সাইট কার্ডগুলো তৈরি করা
+                cat.links.forEach((link, linkIndex) => {
+                    const iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(link.url).hostname}`;
+                    const card = document.createElement('div');
+                    card.className = 'link-card-wrapper';
+                    card.innerHTML = `
+                        <a href="${link.url}" target="_blank" class="link-card">
+                            <button class="delete-btn" onclick="removeLink(event, ${catIndex}, ${linkIndex})">✕</button>
+                            <img src="${iconUrl}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1243/1243420.png'">
+                            <span>${link.name}</span>
+                        </a>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                // নতুন সাইট যোগ করার বাটন
+                const addBtn = document.createElement('div');
+                addBtn.className = 'add-link-btn';
+                addBtn.innerText = '+';
+                addBtn.onclick = () => addLink(catIndex);
+                grid.appendChild(addBtn);
+
+                dashboard.appendChild(section);
+            });
+        }
+
+        // ক্যাটাগরির নাম পরিবর্তন
+        function editCategoryTitle(index) {
+            const newTitle = prompt("নতুন ক্যাটাগরি নাম লিখুন:", browserData[index].title);
+            if (newTitle) {
+                browserData[index].title = newTitle;
+                saveData();
+            }
+        }
+
+        // নতুন লিঙ্ক যোগ করা
+        function addLink(catIndex) {
+            const name = prompt("সাইটের নাম লিখুন:");
+            const url = prompt("ইউআরএল (URL) লিখুন (যেমন: google.com):");
+            if (name && url) {
+                let formattedUrl = url.startsWith('http') ? url : 'https://' + url;
+                browserData[catIndex].links.push({ name: name, url: formattedUrl });
+                saveData();
+            }
+        }
+
+        // লিঙ্ক মুছে ফেলা
+        function removeLink(event, catIndex, linkIndex) {
+            event.preventDefault();
+            event.stopPropagation();
+            if(confirm("আপনি কি এই সাইটটি মুছে ফেলতে চান?")) {
+                browserData[catIndex].links.splice(linkIndex, 1);
+                saveData();
+            }
+        }
 
         // সার্চ ফাংশন
         function launchURL(event) {
             event.preventDefault();
-            const input = document.getElementById('urlInput');
-            let val = input.value.trim();
+            const val = document.getElementById('urlInput').value.trim();
             if (val) {
                 let target = (val.includes('.') && !val.includes(' ')) ? 
                     (val.startsWith('http') ? val : 'https://' + val) : 
@@ -366,6 +256,26 @@
             }
             return false;
         }
+
+        // রিসেট ফাংশন
+        function resetData() {
+            if(confirm("আপনি কি সব সেটিংস মুছে ডিফল্ট অবস্থায় ফিরে যেতে চান?")) {
+                localStorage.removeItem('babaiData');
+                location.reload();
+            }
+        }
+
+        // লোড এনিমেশন
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    renderDashboard();
+                }, 800);
+            }, 2500);
+        });
     </script>
 </body>
 </html>
