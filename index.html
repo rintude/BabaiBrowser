@@ -9,7 +9,7 @@
             --neon-cyan: #00f7ff;
             --neon-magenta: #ff00ff;
             --bg-dark: #050505;
-            --card-bg: #121214;
+            --card-bg: #1a1a1d;
         }
 
         body, html {
@@ -63,7 +63,6 @@
             z-index: 100;
         }
 
-        /* সার্চ ফর্ম স্টাইল */
         .search-form {
             flex-grow: 1;
             display: flex;
@@ -103,45 +102,66 @@
             font-size: 1.5rem;
             border-left: 4px solid var(--neon-magenta);
             padding-left: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--neon-cyan);
         }
 
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 20px;
         }
 
         .link-card {
             background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
+            padding: 20px 10px;
+            border-radius: 15px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 1px solid #222;
+            border: 1px solid #333;
             text-decoration: none;
-            color: #ccc;
-            font-size: 0.9rem;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: white; /* লোগো পরিষ্কার দেখানোর জন্য */
+            padding: 2px;
+        }
+
+        .link-card span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         .link-card:hover {
             border-color: var(--neon-cyan);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.2);
-            color: white;
+            box-shadow: 0 5px 20px rgba(0, 247, 255, 0.3);
+            background: #252529;
         }
 
         .footer {
             text-align: center;
-            padding: 40px;
+            padding: 60px 20px;
             color: #666;
             border-top: 1px solid #222;
         }
 
         @media (max-width: 600px) {
             .splash-text { font-size: 2.5rem; }
+            .link-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -154,7 +174,6 @@
     <div id="main-content" style="display:none;">
         <div class="navbar">
             <div style="font-size: 20px; font-weight: bold; color: var(--neon-magenta); cursor:pointer;" onclick="location.reload()">BABAI</div>
-            
             <form class="search-form" onsubmit="return launchURL(event)">
                 <div class="search-bar">
                     <input type="text" id="urlInput" placeholder="ইউআরএল বা অনুসন্ধান লিখুন..." enterkeyhint="search">
@@ -163,111 +182,9 @@
             </form>
         </div>
 
-        <div class="container" id="dashboard">
+        <div class="container">
             
-            <div class="category-section">
-                <div class="category-title">যোগাযোগ ও সোশ্যাল মিডিয়া</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://web.whatsapp.com" target="_blank">WhatsApp</a>
-                    <a class="link-card" href="https://www.facebook.com" target="_blank">Facebook</a>
-                    <a class="link-card" href="https://www.x.com" target="_blank">X (Twitter)</a>
-                    <a class="link-card" href="https://www.bengalimatrimony.com" target="_blank">Bengali Matrimony</a>
-                    <a class="link-card" href="https://www.shaadi.com" target="_blank">Shaadi.com</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">আর্টিফিশিয়াল ইন্টেলিজেন্স ও সার্চ</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://chat.openai.com" target="_blank">ChatGPT</a>
-                    <a class="link-card" href="https://gemini.google.com" target="_blank">Gemini</a>
-                    <a class="link-card" href="https://www.deepseek.com" target="_blank">DeepSeek</a>
-                    <a class="link-card" href="https://x.ai" target="_blank">Grok</a>
-                    <a class="link-card" href="https://www.google.com" target="_blank">Google</a>
-                    <a class="link-card" href="https://translate.google.com" target="_blank">Translator</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">ইমেইল ও মিটিং</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://mail.google.com" target="_blank">Gmail</a>
-                    <a class="link-card" href="https://mail.yahoo.com" target="_blank">Yahoo Mail</a>
-                    <a class="link-card" href="https://www.zoho.com/mail" target="_blank">Zoho Mail</a>
-                    <a class="link-card" href="https://meet.google.com" target="_blank">Google Meet</a>
-                    <a class="link-card" href="https://www.youtube.com" target="_blank">YouTube</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">ই-commerce ও শপিং</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://www.amazon.in" target="_blank">Amazon India</a>
-                    <a class="link-card" href="https://www.flipkart.com" target="_blank">Flipkart</a>
-                    <a class="link-card" href="https://www.myntra.com" target="_blank">Myntra</a>
-                    <a class="link-card" href="https://www.meesho.com" target="_blank">Meesho</a>
-                    <a class="link-card" href="https://www.shopsy.in" target="_blank">Shopsy</a>
-                    <a class="link-card" href="https://www.ajio.com" target="_blank">Ajio</a>
-                    <a class="link-card" href="https://www.nykaafashion.com" target="_blank">Nykaa Fashion</a>
-                    <a class="link-card" href="https://www.reliancedigital.in" target="_blank">Reliance Digital</a>
-                    <a class="link-card" href="https://www.jiomart.com" target="_blank">JioMart</a>
-                    <a class="link-card" href="https://www.bigbasket.com" target="_blank">BigBasket</a>
-                    <a class="link-card" href="https://www.lenskart.com" target="_blank">Lenskart</a>
-                    <a class="link-card" href="https://www.snapdeal.com" target="_blank">Snapdeal</a>
-                    <a class="link-card" href="https://www.olx.in" target="_blank">OLX</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">ব্যাঙ্কিং ও ফিন্যান্স</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://www.onlinesbi.sbi" target="_blank">SBI Bank</a>
-                    <a class="link-card" href="https://www.hdfcbank.com" target="_blank">HDFC Bank</a>
-                    <a class="link-card" href="https://www.icicibank.com" target="_blank">ICICI Bank</a>
-                    <a class="link-card" href="https://www.axisbank.com" target="_blank">Axis Bank</a>
-                    <a class="link-card" href="https://www.pnbindia.in" target="_blank">PNB Bank</a>
-                    <a class="link-card" href="https://www.bandhanbank.com" target="_blank">Bandhan Bank</a>
-                    <a class="link-card" href="https://www.unionbankofindia.co.in" target="_blank">Union Bank</a>
-                    <a class="link-card" href="https://www.indianbank.in" target="_blank">Indian Bank</a>
-                    <a class="link-card" href="https://www.bankofbaroda.in" target="_blank">Bank of Baroda</a>
-                    <a class="link-card" href="https://www.indusind.com" target="_blank">IndusInd Bank</a>
-                    <a class="link-card" href="https://www.yesbank.in" target="_blank">Yes Bank</a>
-                    <a class="link-card" href="https://www.ucobank.com" target="_blank">UCO Bank</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">মেডিসিন ও স্বাস্থ্য</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://www.1mg.com" target="_blank">Tata 1mg</a>
-                    <a class="link-card" href="https://www.pharmeasy.in" target="_blank">PharmEasy</a>
-                    <a class="link-card" href="https://www.netmeds.com" target="_blank">Netmeds</a>
-                    <a class="link-card" href="https://www.apollo247.com" target="_blank">Apollo 24/7</a>
-                    <a class="link-card" href="https://www.truemeds.in" target="_blank">Truemeds</a>
-                </div>
-            </div>
-
-            <div class="category-section">
-                <div class="category-title">ভ্রমণ ও খাদ্য সরবরাহ</div>
-                <div class="link-grid">
-                    <a class="link-card" href="https://www.irctc.co.in" target="_blank">IRCTC</a>
-                    <a class="link-card" href="https://www.makemytrip.com" target="_blank">MakeMyTrip</a>
-                    <a class="link-card" href="https://www.goibibo.com" target="_blank">Goibibo</a>
-                    <a class="link-card" href="https://www.yatra.com" target="_blank">Yatra</a>
-                    <a class="link-card" href="https://www.booking.com" target="_blank">Booking.com</a>
-                    <a class="link-card" href="https://www.trivago.in" target="_blank">Trivago</a>
-                    <a class="link-card" href="https://www.agoda.com" target="_blank">Agoda</a>
-                    <a class="link-card" href="https://www.skyscanner.co.in" target="_blank">Skyscanner</a>
-                    <a class="link-card" href="https://www.redbus.in" target="_blank">redBus</a>
-                    <a class="link-card" href="https://www.oyorooms.com" target="_blank">OYO</a>
-                    <a class="link-card" href="https://www.zomato.com" target="_blank">Zomato</a>
-                    <a class="link-card" href="https://www.swiggy.com" target="_blank">Swiggy</a>
-                    <a class="link-card" href="https://www.dominos.co.in" target="_blank">Domino's</a>
-                    <a class="link-card" href="https://www.pizzahut.co.in" target="_blank">Pizza Hut</a>
-                    <a class="link-card" href="https://www.kfc.co.in" target="_blank">KFC</a>
-                    <a class="link-card" href="https://www.bookmyshow.com" target="_blank">BookMyShow</a>
-                </div>
-            </div>
+            <div id="dashboard"></div>
 
             <div class="footer">
                 &copy; ২০২৫ বাবাই ব্রাউজার | সর্বস্বত্ব সংরক্ষিত - <strong>বাবাই</strong>
@@ -276,7 +193,126 @@
     </div>
 
     <script>
-        // স্টার্ট-আপ এনিমেশন কন্ট্রোল (৩ সেকেন্ড)
+        // ওয়েবসাইট ডেটা
+        const categories = [
+            {
+                title: "যোগাযোগ ও সোশ্যাল মিডিয়া",
+                links: [
+                    { name: "WhatsApp", url: "https://web.whatsapp.com" },
+                    { name: "Facebook", url: "https://www.facebook.com" },
+                    { name: "X", url: "https://www.x.com" },
+                    { name: "Bengali Matrimony", url: "https://www.bengalimatrimony.com" },
+                    { name: "Shaadi.com", url: "https://www.shaadi.com" }
+                ]
+            },
+            {
+                title: "এআই ও সার্চ",
+                links: [
+                    { name: "ChatGPT", url: "https://chat.openai.com" },
+                    { name: "Gemini", url: "https://gemini.google.com" },
+                    { name: "DeepSeek", url: "https://www.deepseek.com" },
+                    { name: "Grok", url: "https://x.ai" },
+                    { name: "Google", url: "https://www.google.com" },
+                    { name: "Translator", url: "https://translate.google.com" }
+                ]
+            },
+            {
+                title: "ইমেইল ও বিনোদন",
+                links: [
+                    { name: "Gmail", url: "https://mail.google.com" },
+                    { name: "YouTube", url: "https://www.youtube.com" },
+                    { name: "Yahoo Mail", url: "https://mail.yahoo.com" },
+                    { name: "Zoho Mail", url: "https://www.zoho.com/mail" },
+                    { name: "Google Meet", url: "https://meet.google.com" }
+                ]
+            },
+            {
+                title: "ই-কমার্স ও শপিং",
+                links: [
+                    { name: "Amazon", url: "https://www.amazon.in" },
+                    { name: "Flipkart", url: "https://www.flipkart.com" },
+                    { name: "Myntra", url: "https://www.myntra.com" },
+                    { name: "Meesho", url: "https://www.meesho.com" },
+                    { name: "Shopsy", url: "https://www.shopsy.in" },
+                    { name: "Ajio", url: "https://www.ajio.com" },
+                    { name: "Nykaa", url: "https://www.nykaafashion.com" },
+                    { name: "Reliance Digital", url: "https://www.reliancedigital.in" },
+                    { name: "JioMart", url: "https://www.jiomart.com" },
+                    { name: "BigBasket", url: "https://www.bigbasket.com" },
+                    { name: "Lenskart", url: "https://www.lenskart.com" },
+                    { name: "Snapdeal", url: "https://www.snapdeal.com" },
+                    { name: "OLX", url: "https://www.olx.in" }
+                ]
+            },
+            {
+                title: "ব্যাঙ্কিং ও ফিন্যান্স",
+                links: [
+                    { name: "SBI", url: "https://www.onlinesbi.sbi" },
+                    { name: "HDFC", url: "https://www.hdfcbank.com" },
+                    { name: "ICICI", url: "https://www.icicibank.com" },
+                    { name: "Axis", url: "https://www.axisbank.com" },
+                    { name: "PNB", url: "https://www.pnbindia.in" },
+                    { name: "Bandhan", url: "https://www.bandhanbank.com" },
+                    { name: "Union Bank", url: "https://www.unionbankofindia.co.in" },
+                    { name: "Indian Bank", url: "https://www.indianbank.in" },
+                    { name: "Bank of Baroda", url: "https://www.bankofbaroda.in" },
+                    { name: "IndusInd", url: "https://www.indusind.com" },
+                    { name: "Yes Bank", url: "https://www.yesbank.in" },
+                    { name: "UCO Bank", url: "https://www.ucobank.com" }
+                ]
+            },
+            {
+                title: "স্বাস্থ্যসেবা",
+                links: [
+                    { name: "Tata 1mg", url: "https://www.1mg.com" },
+                    { name: "PharmEasy", url: "https://www.pharmeasy.in" },
+                    { name: "Netmeds", url: "https://www.netmeds.com" },
+                    { name: "Apollo 24/7", url: "https://www.apollo247.com" },
+                    { name: "Truemeds", url: "https://www.truemeds.in" }
+                ]
+            },
+            {
+                title: "ভ্রমণ, খাদ্য ও বিনোদন",
+                links: [
+                    { name: "IRCTC", url: "https://www.irctc.co.in" },
+                    { name: "MakeMyTrip", url: "https://www.makemytrip.com" },
+                    { name: "Goibibo", url: "https://www.goibibo.com" },
+                    { name: "Yatra", url: "https://www.yatra.com" },
+                    { name: "Booking.com", url: "https://www.booking.com" },
+                    { name: "Zomato", url: "https://www.zomato.com" },
+                    { name: "Swiggy", url: "https://www.swiggy.com" },
+                    { name: "Domino's", url: "https://www.dominos.co.in" },
+                    { name: "BookMyShow", url: "https://www.bookmyshow.com" },
+                    { name: "OYO", url: "https://www.oyorooms.com" },
+                    { name: "redBus", url: "https://www.redbus.in" }
+                ]
+            }
+        ];
+
+        // ড্যাশবোর্ড তৈরি করা
+        const dashboard = document.getElementById('dashboard');
+        categories.forEach(cat => {
+            let section = document.createElement('div');
+            section.className = 'category-section';
+            
+            let html = `<div class="category-title">${cat.title}</div><div class="link-grid">`;
+            
+            cat.links.forEach(link => {
+                // Google Favicon API ব্যবহার করে লোগো আনা
+                const iconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(link.url).hostname}`;
+                html += `
+                    <a class="link-card" href="${link.url}" target="_blank">
+                        <img src="${iconUrl}" alt="${link.name}">
+                        <span>${link.name}</span>
+                    </a>`;
+            });
+            
+            html += `</div>`;
+            section.innerHTML = html;
+            dashboard.appendChild(section);
+        });
+
+        // স্টার্ট-আপ এনিমেশন
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -289,20 +325,14 @@
             }, 3000);
         });
 
-        // URL লজিক যা Enter বাটন এবং Mobile Search এ কাজ করবে
         function launchURL(event) {
-            event.preventDefault(); // ফর্ম সাবমিট হওয়া আটকায়
+            event.preventDefault();
             const input = document.getElementById('urlInput');
             let val = input.value.trim();
-            
             if (val) {
-                // যদি ইউআরএল না হয় তবে গুগলে সার্চ হবে
-                let target;
-                if (val.includes('.') && !val.includes(' ')) {
-                    target = val.startsWith('http') ? val : 'https://' + val;
-                } else {
-                    target = 'https://www.google.com/search?q=' + encodeURIComponent(val);
-                }
+                let target = (val.includes('.') && !val.includes(' ')) ? 
+                    (val.startsWith('http') ? val : 'https://' + val) : 
+                    'https://www.google.com/search?q=' + encodeURIComponent(val);
                 window.open(target, '_blank');
             }
             return false;
