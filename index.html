@@ -28,7 +28,7 @@
 
         /* Rubik Gemstones ফন্ট সহ গেমিং লোগো */
         .gaming-logo {
-            font-family: 'Rubik Gemstones', system-ui; /* আপনার পছন্দের ফন্ট */
+            font-family: 'Rubik Gemstones', cursive;
             font-size: 32px;
             font-weight: 400;
             letter-spacing: 2px;
@@ -48,6 +48,7 @@
             100% { background-position: 400%; }
         }
 
+        /* স্টার্ট-আপ স্ক্রিন ফন্ট আপডেট */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -58,13 +59,17 @@
         }
 
         .splash-text {
-            font-size: 4rem; font-weight: bold; color: var(--neon-primary);
-            text-shadow: 0 0 20px var(--neon-primary);
+            font-family: 'Rubik Gemstones', cursive;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--neon-primary);
+            text-shadow: 0 0 25px var(--neon-primary);
             animation: pulse 2s infinite;
+            text-align: center;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(0.9); opacity: 0.6; }
+            0%, 100% { transform: scale(0.95); opacity: 0.7; }
             50% { transform: scale(1); opacity: 1; }
         }
 
@@ -91,7 +96,17 @@
         .container { padding: 30px 5%; max-width: 1400px; margin: auto; }
         .category-section { margin-bottom: 40px; background: var(--section-bg); padding: 25px; border-radius: 20px; border: 1px solid #222; }
         .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .category-title { font-size: 1.5rem; color: var(--neon-primary); font-weight: bold; cursor: pointer; }
+        
+        /* ক্যাটাগরি টাইটেল ফন্ট আপডেট */
+        .category-title { 
+            font-family: 'Rubik Gemstones', cursive;
+            font-size: 1.4rem; 
+            color: var(--neon-primary); 
+            font-weight: 400; 
+            cursor: pointer; 
+            letter-spacing: 1px;
+        }
+
         .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px; }
         .link-card-wrapper { position: relative; }
         .link-card { background: var(--card-bg); padding: 15px 10px; border-radius: 15px; text-align: center; border: 1px solid #333; text-decoration: none; color: white; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -105,8 +120,9 @@
         .footer { text-align: center; padding: 50px; color: #555; border-top: 1px solid #222; }
 
         @media (max-width: 600px) {
-            .splash-text { font-size: 2.5rem; }
-            .gaming-logo { font-size: 22px; }
+            .splash-text { font-size: 2rem; }
+            .gaming-logo { font-size: 20px; }
+            .category-title { font-size: 1.1rem; }
             .link-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
             .theme-switcher { display: none; }
         }
